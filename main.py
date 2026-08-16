@@ -11,6 +11,16 @@ class InvalidAmountError(Exception):
 # The empty structure that will hold transactions.
 transactions = []
 
+def build_transaction(action, amount):
+    transactions_fields = {
+    "id": uuid.uuid4(),
+    "amount": amount,
+    "action": action,
+    "date": datetime.datetime.now()
+}
+    return transactions_fields
+
+
 # Step 3
 # Function that allows deposits(add_deposit)
 # Algorithm. 
@@ -18,20 +28,12 @@ transactions = []
    # Append deposit to transactions as a dictionary containing the amount, ID, type, and date.
 
 
-   
-
 def add_deposit(amount):
+    
 
     if (amount <= 0):
         raise InvalidAmountError(f"You can't deposit zero or a negative amount: {amount}")   
-
-    fields = {
-    "id": uuid.uuid4(),
-    "amount": amount,
-    "type": "deposit",
-    "date": datetime.datetime.now()
-}
-    transactions.append(fields)
+    transactions.append(build_transaction("deposit", amount))
 
 
 add_deposit(500)
@@ -52,13 +54,24 @@ add_deposit(500)
     # call check_balance
 
 
+
+def add_withdrawal(amount):
+    if (amount <= 0):
+        raise InvalidAmountError(f"You can't withdraw Ksh 0 or less: {amount}")
+    
+    transactions.append(build_transaction("withdrawal", amount))
+
+add_withdrawal(1400)
+
+
+
 def check_balance():
     available_balance = 0
 
     for transaction in transactions:
-        if transaction["type"] == 'deposit':
+        if transaction["action"] == 'deposit':
             available_balance += transaction["amount"]
-        elif transaction["type"] == 'withdrawal':
+        elif transaction["action"] == 'withdrawal':
             available_balance -= transaction["amount"]
 
     return available_balance
