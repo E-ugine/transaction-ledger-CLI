@@ -44,7 +44,6 @@ def add_deposit(amount):
 add_deposit(1500)
 #add_deposit(15000)
 #add_deposit(350000)
-#print(transactions)
 
 
 
@@ -89,7 +88,25 @@ add_withdrawal(200)
 add_withdrawal(200)
 add_withdrawal(1100)
 
-print(f" Available balance is :", check_balance() ) 
+#print(f" Available balance is :", check_balance() ) 
+
+#print(transactions)
+
+
+#step 8. A function that lists and filters transactions depending on action type
+"""def list_transactions(action=???):
+    loop through transactions
+    for each one, decide: should it be printed?
+        - if action is ??? (nothing was passed), print everything
+        - otherwise, only print if the transaction's action matches"""
+
+def list_transactions(action=None):
+    for transaction in transactions:
+        if (action == None) or  transaction["action"] == action:
+            print (f"Details of this transaction: {transaction["action"]} in the amount of {transaction["amount"]}")
+        
+list_transactions("deposit")        
+
 
 
 
