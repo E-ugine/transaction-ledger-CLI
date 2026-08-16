@@ -16,16 +16,43 @@ transactions = []
 
 def add_deposit(amount):
 
-    my_dict = {
+    fields = {
     "id": uuid.uuid4(),
     "amount": amount,
     "type": "deposit",
     "date": datetime.datetime.now()
 }
-    transactions.append(my_dict)
+    transactions.append(fields)
 
 
-#add_deposit(500)
-#add_deposit(15000)
+add_deposit(500)
+add_deposit(15000)
 add_deposit(350000)
-print(transactions)
+#print(transactions)
+
+# Step 4 
+# Function that checks the available balance
+# Loops through the ledger(transactions) and computes net balance
+# Algorithm
+    # define a function 'check_balance'. It doesn't take in any parameter.
+    # initialize a variable available_balance that stores the initial account's net balance. Initialize it to 0 since no transaction has happened at this stage. We have an empty ledger
+    # Loops through the list to check transaction type
+    # If type is deposit, add deposit amount to available_balance
+    # If type is withdrawal, substract withdrawal amount from available_balance
+    # return the net balance
+    # call check_balance
+
+
+def check_balance():
+    available_balance = 0
+
+    for transaction in transactions:
+        if transaction["type"] == 'deposit':
+            available_balance += transaction["amount"]
+        elif transaction["type"] == 'withdrawal':
+            available_balance -= transaction["amount"]
+
+    return available_balance
+print(check_balance() )       
+        
+        
