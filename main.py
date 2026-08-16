@@ -5,6 +5,8 @@ import datetime
 class InvalidAmountError(Exception):
     pass
 
+class InsufficientFundsError(Exception):
+    pass
 
 
 # Step 2 from the README. 
@@ -19,6 +21,9 @@ def build_transaction(action, amount):
     "date": datetime.datetime.now()
 }
     return transactions_fields
+
+
+
 
 
 # Step 3
@@ -36,10 +41,24 @@ def add_deposit(amount):
     transactions.append(build_transaction("deposit", amount))
 
 
-add_deposit(500)
+add_deposit(1500)
 #add_deposit(15000)
 #add_deposit(350000)
 #print(transactions)
+
+
+
+
+def check_balance():
+    available_balance = 0
+
+    for transaction in transactions:
+        if transaction["action"] == 'deposit':
+            available_balance += transaction["amount"]
+        elif transaction["action"] == 'withdrawal':
+            available_balance -= transaction["amount"]
+
+    return available_balance
 
 # Step 4 
 # Function that checks the available balance
@@ -55,26 +74,25 @@ add_deposit(500)
 
 
 
+
 def add_withdrawal(amount):
+    current_balance = check_balance()
     if (amount <= 0):
         raise InvalidAmountError(f"You can't withdraw Ksh 0 or less: {amount}")
     
+    if (amount > current_balance ):
+        raise InsufficientFundsError(f"You have insufficients funds to withdraw: {amount}")
+    
     transactions.append(build_transaction("withdrawal", amount))
 
-add_withdrawal(1400)
+add_withdrawal(200)
+add_withdrawal(200)
+add_withdrawal(1100)
+
+print(f" Available balance is :", check_balance() ) 
 
 
 
-def check_balance():
-    available_balance = 0
-
-    for transaction in transactions:
-        if transaction["action"] == 'deposit':
-            available_balance += transaction["amount"]
-        elif transaction["action"] == 'withdrawal':
-            available_balance -= transaction["amount"]
-
-    return available_balance
-print(f" Available balance is :", check_balance() )       
+      
         
         
