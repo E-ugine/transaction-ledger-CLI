@@ -1,6 +1,12 @@
 import uuid
 import datetime
 
+
+class InvalidAmountError(Exception):
+    pass
+
+
+
 # Step 2 from the README. 
 # The empty structure that will hold transactions.
 transactions = []
@@ -16,6 +22,9 @@ transactions = []
 
 def add_deposit(amount):
 
+    if (amount <= 0):
+        raise InvalidAmountError(f"You can't deposit zero or a negative amount: {amount}")   
+
     fields = {
     "id": uuid.uuid4(),
     "amount": amount,
@@ -26,8 +35,8 @@ def add_deposit(amount):
 
 
 add_deposit(500)
-add_deposit(15000)
-add_deposit(350000)
+#add_deposit(15000)
+#add_deposit(350000)
 #print(transactions)
 
 # Step 4 
@@ -53,6 +62,6 @@ def check_balance():
             available_balance -= transaction["amount"]
 
     return available_balance
-print(check_balance() )       
+print(f" Available balance is :", check_balance() )       
         
         
