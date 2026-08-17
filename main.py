@@ -23,8 +23,6 @@ def build_transaction(action, amount):
 }
     return transactions_fields
 
-
-
 def load_ledger(filename="ledger.json"):
     try:
         with open(filename, "r") as f:
@@ -38,10 +36,6 @@ def load_ledger(filename="ledger.json"):
         transactions.clear()
         transactions.extend(loaded_data)
 
-load_ledger()
-
-
-
 
 def prepare_for_save(transactions):
     jsonified_transactions = [
@@ -51,16 +45,12 @@ def prepare_for_save(transactions):
            "date":str(transaction["date"])}
              for transaction in transactions]
     return jsonified_transactions
-#print(prepare_for_save(transactions))
-
 
 
 def save_ledger(filename="ledger.json"):
     jsonified_transactions = prepare_for_save(transactions) 
     with open(filename, "w") as f:
         json.dump(jsonified_transactions,f)
-
-save_ledger()
 
 # Step 3
 # Function that allows deposits(add_deposit)
@@ -73,14 +63,6 @@ def add_deposit(amount):
     if (amount <= 0):
         raise InvalidAmountError(f"You can't deposit zero or a negative amount: {amount}")   
     transactions.append(build_transaction("deposit", amount))
-
-
-add_deposit(15000)
-#add_deposit(350000)
-
-save_ledger()
-
-
 
 
 def check_balance():
@@ -119,16 +101,6 @@ def add_withdrawal(amount):
     
     transactions.append(build_transaction("withdrawal", amount))
 
-add_withdrawal(200)
-add_withdrawal(200)
-add_withdrawal(1100)
-
-save_ledger()
-
-#print(f" Available balance is :", check_balance() ) 
-
-#print(transactions)
-
 
 #step 8. A function that lists and filters transactions depending on action type
 """def list_transactions(action=???):
@@ -140,9 +112,8 @@ save_ledger()
 def list_transactions(action=None):
     for transaction in transactions:
         if (action == None) or  transaction["action"] == action:
-            """print (f"Details of this transaction: {transaction["action"]} in the amount of {transaction["amount"]}")"""
-        
-list_transactions()        
+            print (f"Details of this transaction: {transaction["action"]} in the amount of {transaction["amount"]}")
+                
 
   
 
