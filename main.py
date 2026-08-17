@@ -1,5 +1,6 @@
 import uuid
 import datetime
+import json
 
 
 class InvalidAmountError(Exception):
@@ -34,8 +35,6 @@ def build_transaction(action, amount):
 
 
 def add_deposit(amount):
-    
-
     if (amount <= 0):
         raise InvalidAmountError(f"You can't deposit zero or a negative amount: {amount}")   
     transactions.append(build_transaction("deposit", amount))
@@ -105,9 +104,28 @@ def list_transactions(action=None):
         if (action == None) or  transaction["action"] == action:
             print (f"Details of this transaction: {transaction["action"]} in the amount of {transaction["amount"]}")
         
-list_transactions("deposit")        
+# list_transactions("deposit")        
 
 
+# new_list = [expression for item in iterable]
+
+def prepare_for_save(transactions):
+    jsonified_transactions = [
+        {"id": str(transaction["id"]), 
+         "amount":transaction["amount"],
+           "action":transaction["action"], 
+           "date":str(transaction["date"])}
+             for transaction in transactions]
+    return jsonified_transactions
+print(prepare_for_save(transactions))\
+
+
+def save_ledger(filename="ledger.json"):
+    jsonified_transactions = prepare_for_save(transactions) 
+    with open(filename, "w") as f:
+        json.dump(jsonified_transactions,f)
+
+save_ledger()        
 
 
       
