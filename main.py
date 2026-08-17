@@ -114,7 +114,6 @@ def list_transactions(action=None):
         if (action == None) or  transaction["action"] == action:
             print (f"Details of this transaction: {transaction["action"]} in the amount of {transaction["amount"]}")
                 
-
   
 
       
