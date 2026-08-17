@@ -40,8 +40,7 @@ def add_deposit(amount):
     transactions.append(build_transaction("deposit", amount))
 
 
-add_deposit(1500)
-#add_deposit(15000)
+"""add_deposit(15000)"""
 #add_deposit(350000)
 
 
@@ -83,9 +82,9 @@ def add_withdrawal(amount):
     
     transactions.append(build_transaction("withdrawal", amount))
 
+"""add_withdrawal(200)
 add_withdrawal(200)
-add_withdrawal(200)
-add_withdrawal(1100)
+add_withdrawal(1100)"""
 
 #print(f" Available balance is :", check_balance() ) 
 
@@ -120,13 +119,23 @@ def prepare_for_save(transactions):
 print(prepare_for_save(transactions))\
 
 
-def save_ledger(filename="ledger.json"):
+"""def save_ledger(filename="ledger.json"):
     jsonified_transactions = prepare_for_save(transactions) 
     with open(filename, "w") as f:
         json.dump(jsonified_transactions,f)
 
-save_ledger()        
+save_ledger() """       
 
+
+
+def load_ledger(filename="ledger.json"):
+    with open(filename, "r") as f:
+        loaded_data = json.load(f)
+
+        transactions.clear()
+        transactions.extend(loaded_data)
+
+load_ledger()
 
       
         
