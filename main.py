@@ -112,7 +112,7 @@ def add_withdrawal(amount):
 def list_transactions(action=None):
     for transaction in transactions:
         if (action == None) or  transaction["action"] == action:
-            print (f"Details of this transaction: {transaction["action"]} in the amount of {transaction["amount"]}")
+            print (f"You made a {transaction["action"]} in the amount of {transaction["amount"]}")
                 
   
 
